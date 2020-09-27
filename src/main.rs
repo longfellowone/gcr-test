@@ -1,4 +1,9 @@
+// docker build -t gcrtest .
+// docker run -p 8080:80 gcrtest
+// docker stop $(docker ps -a -q)
+
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use actix_cors::Cors;
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -16,13 +21,16 @@ async fn manual_hello() -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    println!("Starting server...");
+
     HttpServer::new(|| {
         App::new()
+            .wrap(Cors::new().finish())
             .service(hello)
             .service(echo)
             .route("/hey", web::get().to(manual_hello))
     })
-        .bind("0.0.0.0:8080")?
+        .bind("0.0.0.0:80")?
         .run()
         .await
 }
