@@ -7,7 +7,7 @@ use actix_cors::Cors;
 
 #[get("/")]
 async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
+    HttpResponse::Ok().body("Hello world!!!")
 }
 
 #[post("/echo")]
