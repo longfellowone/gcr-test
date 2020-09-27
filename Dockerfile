@@ -19,6 +19,6 @@ RUN set -x\
 FROM rust:1.46-slim
 COPY --from=builder /builder/target/release/gcr .
 
-# EXPOSE 8080
+EXPOSE 8080
 
 CMD ["./gcr"]
