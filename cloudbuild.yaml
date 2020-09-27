@@ -1,31 +1,10 @@
 steps:
-#  - name: 'gcr.io/cloud-builders/docker'
-#    entrypoint: 'bash'
-#    args:
-#      - '-c'
-#      - 'docker pull $_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA:latest || exit 0'
-#  - name: gcr.io/cloud-builders/docker
-#    args:
-#      - build
-#      - '-t'
-#      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-#      - '--cache-from'
-#      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA:latest'
-#      - .
-#      - '-f'
-#      - Dockerfile
-#    id: Build
   - name: gcr.io/kaniko-project/executor:latest
     args:
       - '--destination=$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
       - '--cache=true'
       - '--cache-ttl=168h'
     id: Build
-#  - name: gcr.io/cloud-builders/docker
-#    args:
-#      - push
-#      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-#    id: Push
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
       - run
@@ -41,8 +20,6 @@ steps:
     id: Deploy
     entrypoint: gcloud
 timeout: 2400s
-#images:
-#  - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
 options:
   substitutionOption: ALLOW_LOOSE
 substitutions:
