@@ -7,12 +7,7 @@ use actix_cors::Cors;
 
 #[get("/")]
 async fn hello() -> impl Responder {
-    println!("hit");
-    HttpResponse::Ok().body("Hello world!!!")
-}
-
-async fn manual_hello() -> impl Responder {
-    HttpResponse::Ok().body("Hey there!")
+    HttpResponse::Ok().body("Hello world!")
 }
 
 #[actix_web::main]
@@ -23,7 +18,6 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .wrap(Cors::new().finish())
             .service(hello)
-            .route("/hey", web::get().to(manual_hello))
     })
         .bind("0.0.0.0:8080")?
         .run()
