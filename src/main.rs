@@ -2,7 +2,7 @@
 // docker run -p 8080:80 gcrtest
 // docker stop $(docker ps -a -q)
 
-use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use actix_cors::Cors;
 
 #[get("/")]
